@@ -14,9 +14,9 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       sliderInput("hoursRange", "Sélectionnez la plage d'heures travaillées:",
-                  min = min(data$Hours_Worked_Per_Week, na.rm = TRUE),
-                  max = max(data$Hours_Worked_Per_Week, na.rm = TRUE),
-                  value = c(min(data$Hours_Worked_Per_Week, na.rm = TRUE), max(data$Hours_Worked_Per_Week, na.rm = TRUE)),
+                  min = 0,  # Set the minimum value to 0
+                  max = 60, # Set the maximum value to 60
+                  value = c(0, 60), # Default range from 0 to 60
                   step = 1),
       
       sliderInput("satisfactionRange", "Sélectionnez le niveau de satisfaction:",
@@ -49,14 +49,14 @@ server <- function(input, output) {
                                           levels = 1:5,
                                           labels = c("Très Faible", "Faible", "Moyen", "Bon", "Excellent")),
         
-        # Use descriptive labels for hours worked intervals
-        Hours_Interval = case_when(
-          Hours_Worked_Per_Week >= 50 ~ "50-60",
-          Hours_Worked_Per_Week >= 40 ~ "40-50",
-          Hours_Worked_Per_Week >= 30 ~ "30-40",
-          Hours_Worked_Per_Week >= 20 ~ "20-30",
-          TRUE ~ "<20"
-        )
+        # Adjusted intervals with specified ranges and ordered factor
+        Hours_Interval = factor(case_when(
+          Hours_Worked_Per_Week >= 51 ~ "51-60",
+          Hours_Worked_Per_Week >= 41 ~ "41-50",
+          Hours_Worked_Per_Week >= 31 ~ "31-40",
+          Hours_Worked_Per_Week >= 21 ~ "21-30",
+          TRUE ~ "0-20"  # Includes all values from 0 to 20
+        ), levels = c("0-20", "21-30", "31-40", "41-50", "51-60"))
       )
   })
   
