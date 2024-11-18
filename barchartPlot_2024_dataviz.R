@@ -5,7 +5,7 @@ library(dplyr)
 library(plotly)  # For interactive tooltips
 
 # Load data
-data <- read.csv("C:/Users/allay/Documents/projetDataVizualisation_2024/Impact_of_Remote_Work_on_Mental_Health.csv")
+data <- read.csv("./Impact_of_Remote_Work_on_Mental_Health.csv")
 
 # User interface
 ui <- fluidPage(
