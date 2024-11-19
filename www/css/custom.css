@@ -1,0 +1,271 @@
+/* Style global */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* En-tête du dashboard */
+.main-header .logo {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+/* Style des boîtes */
+.box {
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border-top: 3px solid #007D9C;
+  margin-bottom: 20px;
+}
+
+/* Style des filtres collapsibles */
+.filter-group {
+  margin-bottom: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: white;
+}
+
+.collapsible-header {
+  cursor: pointer;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.collapsible-header:hover {
+  background-color: #e9ecef;
+}
+
+.collapsible-content {
+  border-top: 1px solid #e0e0e0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Style de l'icône de toggle */
+.toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* Style des checkboxes */
+.checkbox {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox input[type='checkbox'] {
+  margin-right: 8px;
+}
+
+/* Scrollbar personnalisée */
+.collapsible-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.collapsible-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.collapsible-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.collapsible-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Contenu collapsible masqué */
+.collapsible-content.collapsed {
+  max-height: 0; /* Réduit la hauteur à 0 pour masquer */
+  overflow: hidden; /* Cache le contenu */
+  transition: max-height 0.3s ease; /* Transition pour un effet fluide */
+}
+
+/* Contenu collapsible visible */
+.collapsible-content {
+  max-height: 300px; /* Hauteur maximale lorsqu'il est ouvert */
+  transition: max-height 0.3s ease; /* Transition fluide */
+}
+
+/* En-tête actif lorsqu'il est ouvert */
+.collapsible-header.active {
+  background-color: #e0e0e0; /* Change de couleur pour indiquer l'état ouvert */
+  font-weight: bold; /* Facultatif : Met le texte en gras */
+}
+
+/* Icône de bascule (rotation) */
+.toggle-icon {
+  transition: transform 0.3s ease; /* Transition douce */
+}
+
+.toggle-icon.rotate {
+  transform: rotate(180deg); /* Rotation de 180° lorsqu'il est ouvert */
+}
+
+
+
+/* Style des cartes d'accueil */
+.analysis-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.analysis-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Style de la légende personnalisée */
+.custom-legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+/* Animation de transition */
+.tab-pane {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Loading spinner */
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.preview-card {
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.preview-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.preview-card h4 {
+  font-weight: 500;
+}
+
+.preview-card a {
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.preview-card a:hover {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+/* Style pour les boxes de la vue d'ensemble */
+.overview-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.overview-box .chart-container {
+  flex: 1;
+  min-height: 0;  /* Important pour le comportement flex */
+}
+
+.overview-box .action-link {
+  margin-top: auto;
+  padding: 10px;
+  text-align: right;
+}
+
+/* Style des boxes de techniques */
+.technique-box {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Titre de la technique */
+.technique-title {
+  background: #3c8dbc;
+  color: white;
+  padding: 15px;
+  margin: 0;
+  border-radius: 8px 8px 0 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* Contenu de la technique */
+.technique-box .shiny-plot-output {
+  flex: 1;
+  padding: 15px;
+  min-height: 400px;
+}
+
+/* Footer avec le lien Explorer */
+.technique-footer {
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #eee;
+}
+
+/* Style du lien Explorer */
+.technique-footer a {
+  color: #3c8dbc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.technique-footer a:hover {
+  color: #2a6496;
+}
+
+/* Ajustements pour les visualisations */
+.plotly-graph-div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
