@@ -10,12 +10,13 @@ library(fresh)
 # Charger les composants UI et fonctions globales
 source("R/ui_components.R")
 source("global.R")
-source("R/utils.R")
-source("R/data_processing.R")
-
 # Source des modules
 source("modules/sunburst/module_ui.R")
 source("modules/sunburst/module_server.R")
+source("modules/barchart/module_ui.R")
+source("modules/barchart/module_server.R")
+source("modules/parallelset/module_ui.R")
+source("modules/parallelset/module_server.R")
 
 # Source du dashboard principal
 source("dashboard/ui.R")
