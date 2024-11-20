@@ -18,17 +18,16 @@ dashboardServer <- function(input, output, session) {
     )
   })
 
-  # Initialisation des modules pour la vue d'ensemble
-  sunburstServer("overview_sunburst", reactive(list(data = global_data())))
-  parallelsetServer("overview_parallel", reactive(list(data = global_data())))
+  # Initialisation des modules
+  sunburstServerbis("overview_sunburst", reactive(list(data = global_data())))
+  parallelsetServerbis("overview_parallel", reactive(list(data = global_data())))
   barchartServer("overview_barchart", reactive(list(data = global_data())))
-
-  # Initialisation des modules pour les vues détaillées
+  
   sunburstServer("sunburst", reactive(list(data = global_data())))
   parallelsetServer("parallelset", reactive(list(data = global_data())))
   barchartServer("barchart", reactive(list(data = global_data())))
 
-  # Navigation vers les détails
+  # Navigation
   observeEvent(input$goto_sunburst, {
     updateTabItems(session, "sidebar_menu", "sunburst")
   })

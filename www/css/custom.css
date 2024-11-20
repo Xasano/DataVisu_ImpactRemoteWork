@@ -1,29 +1,37 @@
+/* Variables globales */
+:root {
+  --primary-color: #3c8dbc;
+  --secondary-color: #2C3E50;
+  --shadow: 0 2px 10px rgba(0,0,0,0.1);
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+}
+
 /* Style global */
 body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* En-tête du dashboard */
+/* En-tête */
 .main-header .logo {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
   font-weight: 300;
   font-size: 20px;
 }
 
-/* Style des boîtes */
-.box {
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  border-top: 3px solid #007D9C;
+/* Composants communs */
+.box, .vis-card, .analysis-card, .technique-box {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
   margin-bottom: 20px;
 }
 
-/* Style des filtres collapsibles */
+/* Système de filtres */
 .filter-group {
-  margin-bottom: 10px;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   background: white;
+  margin-bottom: 10px;
 }
 
 .collapsible-header {
@@ -34,26 +42,28 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background-color 0.3s ease;
+  transition: var(--transition);
 }
 
 .collapsible-header:hover {
   background-color: #e9ecef;
 }
 
+.collapsible-header.active {
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
 .collapsible-content {
   border-top: 1px solid #e0e0e0;
   max-height: 300px;
   overflow-y: auto;
+  transition: max-height 0.3s ease;
 }
 
-/* Style de l'icône de toggle */
-.toggle-icon {
-  transition: transform 0.3s ease;
-}
-
-.rotate {
-  transform: rotate(180deg);
+.collapsible-content.collapsed {
+  max-height: 0;
+  overflow: hidden;
 }
 
 /* Style des checkboxes */
@@ -86,51 +96,38 @@ body {
   background: #555;
 }
 
-/* Contenu collapsible masqué */
-.collapsible-content.collapsed {
-  max-height: 0; /* Réduit la hauteur à 0 pour masquer */
-  overflow: hidden; /* Cache le contenu */
-  transition: max-height 0.3s ease; /* Transition pour un effet fluide */
+/* Visualisations */
+.vis-card {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
 }
 
-/* Contenu collapsible visible */
-.collapsible-content {
-  max-height: 300px; /* Hauteur maximale lorsqu'il est ouvert */
-  transition: max-height 0.3s ease; /* Transition fluide */
+.vis-content, .technique-box .shiny-plot-output {
+  flex: 1;
+  padding: 15px;
+  overflow: hidden;
 }
 
-/* En-tête actif lorsqu'il est ouvert */
-.collapsible-header.active {
-  background-color: #e0e0e0; /* Change de couleur pour indiquer l'état ouvert */
-  font-weight: bold; /* Facultatif : Met le texte en gras */
+.vis-footer, .technique-footer {
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+  text-align: right;
 }
 
-/* Icône de bascule (rotation) */
-.toggle-icon {
-  transition: transform 0.3s ease; /* Transition douce */
+.explore-btn {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
 }
 
-.toggle-icon.rotate {
-  transform: rotate(180deg); /* Rotation de 180° lorsqu'il est ouvert */
+.explore-btn:hover {
+  color: #2980b9;
+  transform: translateX(5px);
 }
 
-
-
-/* Style des cartes d'accueil */
-.analysis-card {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.analysis-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-/* Style de la légende personnalisée */
+/* Légende */
 .custom-legend {
   display: flex;
   justify-content: center;
@@ -141,19 +138,19 @@ body {
   border-radius: 4px;
 }
 
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .legend-color {
   width: 20px;
   height: 20px;
   border-radius: 4px;
 }
 
-/* Animation de transition */
+/* Plotly ajustements */
+.plotly-graph-div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Animations */
 .tab-pane {
   animation: fadeIn 0.3s ease-in;
 }
@@ -163,109 +160,35 @@ body {
   to { opacity: 1; }
 }
 
-/* Loading spinner */
-.loading-spinner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-
-.preview-card {
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.preview-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.preview-card h4 {
-  font-weight: 500;
-}
-
-.preview-card a {
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.preview-card a:hover {
-  color: #0056b3;
-  text-decoration: none;
-}
-
-/* Style pour les boxes de la vue d'ensemble */
-.overview-box {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.overview-box .chart-container {
-  flex: 1;
-  min-height: 0;  /* Important pour le comportement flex */
-}
-
-.overview-box .action-link {
-  margin-top: auto;
+.filter-header {
+  cursor: pointer;
   padding: 10px;
-  text-align: right;
-}
-
-/* Style des boxes de techniques */
-.technique-box {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-  min-height: 500px;
+  background: #f8f9fa;
+  border-radius: 4px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
 }
 
-/* Titre de la technique */
-.technique-title {
-  background: #3c8dbc;
-  color: white;
-  padding: 15px;
-  margin: 0;
-  border-radius: 8px 8px 0 0;
-  font-size: 18px;
-  font-weight: 500;
+.filter-header:hover {
+  background-color: #e9ecef;
 }
 
-/* Contenu de la technique */
-.technique-box .shiny-plot-output {
-  flex: 1;
-  padding: 15px;
-  min-height: 400px;
+.filter-content {
+  display: none;
+  padding: 15px 10px 5px 10px;
+  border-top: 1px solid #e0e0e0;
 }
 
-/* Footer avec le lien Explorer */
-.technique-footer {
-  padding: 15px;
-  text-align: right;
-  border-top: 1px solid #eee;
+.filter-content.show {
+  display: block;
 }
 
-/* Style du lien Explorer */
-.technique-footer a {
-  color: #3c8dbc;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
+.toggle-icon {
+  transition: transform 0.3s ease;
 }
 
-.technique-footer a:hover {
-  color: #2a6496;
+.toggle-icon.rotate {
+  transform: rotate(180deg);
 }
-
-/* Ajustements pour les visualisations */
-.plotly-graph-div {
-  width: 100% !important;
-  height: 100% !important;
-}
-

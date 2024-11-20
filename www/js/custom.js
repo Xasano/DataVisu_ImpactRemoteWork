@@ -6,61 +6,62 @@ $(document).ready(function () {
 
   function initCollapsibleFilters() {
     console.log("Initialisation des filtres collapsibles...");
-
+  
     // Retirer les gestionnaires d'événements existants
-    $('.collapsible-header').off('click');
+    $('.filter-header').off('click');
     $('.checkbox, input[type="checkbox"], label').off('click');
-
+  
     // Ajouter un gestionnaire pour les en-têtes
-    $('.collapsible-header').on('click', function (e) {
-        // Empêche la propagation si l'utilisateur clique sur une checkbox ou un label
-        if (
-            $(e.target).closest('.collapsible-content').length ||
-            $(e.target).is('input[type="checkbox"]') ||
-            $(e.target).is('label') ||
-            $(e.target).closest('.checkbox').length
-        ) {
-            return;
-        }
-
-        // Basculer l'affichage du contenu associé
-        const collapsibleContent = $(this).next('.collapsible-content');
-        collapsibleContent.slideToggle(300); // Animation pour masquer/afficher
-
-        // Ajouter une classe active pour styliser l'en-tête
-        $(this).toggleClass('active');
-
-        // Basculer l'icône (si vous avez une icône pour indiquer l'état ouvert/fermé)
-        $(this).find('.toggle-icon').toggleClass('rotate');
+    $('.filter-header').on('click', function (e) {
+      // Empêche la propagation si l'utilisateur clique sur une checkbox ou un label
+      if (
+        $(e.target).closest('.filter-content').length ||
+        $(e.target).is('input[type="checkbox"]') ||
+        $(e.target).is('label') ||
+        $(e.target).closest('.checkbox').length
+      ) {
+        return;
+      }
+  
+      // Basculer l'affichage du contenu associé
+      const filterContent = $(this).next('.filter-content');
+      filterContent.slideToggle(300); // Animation pour masquer/afficher
+  
+      // Ajouter une classe active pour styliser l'en-tête
+      $(this).toggleClass('active');
+  
+      // Basculer l'icône
+      $(this).find('.toggle-icon').toggleClass('rotate');
     });
-
-    // Gestion des clics spécifiques sur les checkboxes (pour éviter les conflits)
-    $('.collapsible-content').on('click', 'input[type="checkbox"], label', function (e) {
-        e.stopPropagation(); // Empêcher la propagation vers l'en-tête
+  
+    // Gestion des clics spécifiques sur les checkboxes
+    $('.filter-content').on('click', 'input[type="checkbox"], label', function (e) {
+      e.stopPropagation();
     });
-
-    // Ouvrir le premier groupe de filtres à l'initialisation (facultatif)
+  
+    // Ouvrir le premier groupe de filtres à l'initialisation
     if (!isInitialized) {
-        $('.filter-group:first .collapsible-header').click();
-        isInitialized = true;
+      $('.filter-group:first .filter-header').click();
+      isInitialized = true;
     }
-}
-
-
-  // Initialisation initiale
-  initCollapsibleFilters();
-
-  // Observer modifié pour les nouveaux éléments
+  }
+  
+  // Observer pour les nouveaux filtres
   const observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
       if (mutation.addedNodes.length) {
         const newFilterGroups = $(mutation.addedNodes).find('.filter-group');
-        if (newFilterGroups.length > 0 && !isInitialized) {
+        if (newFilterGroups.length > 0) {
           initCollapsibleFilters();
-          console.log("Initialisation des filtres après ajout au DOM.");
+          console.log("Nouveaux filtres initialisés");
         }
       }
     });
+  });
+  
+  // Initialisation au chargement
+  $(document).ready(function() {
+    initCollapsibleFilters();
   });
 
   // Configuration de l'observer

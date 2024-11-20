@@ -6,8 +6,10 @@
 filterGroupUI <- function(id, title, icon_name) {
   div(
     class = "filter-group",
-    tags$div(
-      class = "collapsible-header",
+    div(
+      class = "filter-header",
+      `data-toggle` = "collapse",
+      `data-target` = paste0("#", id, "-content"),
       style = "cursor: pointer; padding: 10px; background: #f8f9fa; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;",
       tags$span(
         icon(icon_name), 
@@ -17,11 +19,13 @@ filterGroupUI <- function(id, title, icon_name) {
       icon("chevron-down", class = "toggle-icon")
     ),
     div(
-      class = "collapsible-content",
-      style = "display: none; padding: 15px 10px 5px 10px;",
-      checkboxGroupInput(id,
-                         label = NULL,
-                         choices = NULL
+      id = paste0(id, "-content"),
+      class = "filter-content collapse",
+      style = "padding: 15px 10px 5px 10px;",
+      checkboxGroupInput(
+        id,
+        label = NULL,
+        choices = NULL
       )
     )
   )
@@ -37,7 +41,7 @@ customLegendUI <- function(id) {
       display: flex;
       justify-content: center;
       gap: 20px;
-      margin-bottom: 20px;
+      margin-top: 20px;
       padding: 10px;
       background: #f8f9fa;
       border-radius: 4px;

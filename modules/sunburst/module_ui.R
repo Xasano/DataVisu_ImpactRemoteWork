@@ -36,13 +36,11 @@ sunburstUI <- function(id) {
         div(
           class = "visualization-section",
           style = "background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);",
-          h4("Visualisation Sunburst", 
-             style = "margin-top: 0; margin-bottom: 20px; color: #2C3E50;"),
-          customLegendUI(ns("legend")),
           div(
             style = "width: 100%; height: 600px;",
             plotlyOutput(ns("sunburstPlot"), height = "100%")
-          )
+          ),
+          customLegendUI(ns("legend"))
         )
       )
     )
