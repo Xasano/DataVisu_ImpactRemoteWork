@@ -106,6 +106,11 @@ parallelsetServerbis <- function(id, shared_data) {
             )
         ) %>%
             layout(
+            title = list(
+            text = "Analyse de la productivité selon le lieu de travail et le stress",
+            font = list(size = 16),
+            y = 0.98
+            ),
             font = list(size = 12),
             xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),

@@ -1,17 +1,11 @@
-# Server Module
-barchartServer <- function(id, shared_data) {
+# Server Component version simplifiée
+barchartServerbis <- function(id, shared_data) {
   moduleServer(id, function(input, output, session) {
     
     filtered_data <- reactive({
       req(shared_data()$data)
       
       shared_data()$data %>%
-        filter(
-          Hours_Worked_Per_Week >= input$hoursRange[1],
-          Hours_Worked_Per_Week <= input$hoursRange[2],
-          as.numeric(Work_Life_Balance_Rating) >= input$satisfactionRange[1],
-          as.numeric(Work_Life_Balance_Rating) <= input$satisfactionRange[2]
-        ) %>%
         mutate(
           Work_Life_Balance_Rating = factor(
             as.numeric(Work_Life_Balance_Rating),
@@ -58,30 +52,37 @@ barchartServer <- function(id, shared_data) {
         labs(
           x = "Nombre d'employés",
           y = "Heures travaillées par semaine",
-          fill = "Niveau de satisfaction"
+          fill = "Satisfaction"
         ) +
         theme_minimal() +
         theme(
-          plot.title = element_text(size = 14, hjust = 0.5),
-          axis.text = element_text(size = 12),
-          axis.title = element_text(size = 12),
-          legend.position = "top"
+          axis.text = element_text(size = 10),
+          axis.title = element_text(size = 10),
+          legend.position = "bottom",
+          legend.title = element_text(size = 10),
+          legend.text = element_text(size = 9),
+          plot.margin = margin(5, 5, 5, 5)
         )
       
       ggplotly(p, tooltip = "text") %>%
         layout(
-          margin = list(l = 20, r = 20, t = 40, b = 20),
-          legend = list(orientation = "h", y = 1.1)
-        )
+            title = list(
+            text = "Analyse de l'equilibre travail-vie",
+            font = list(size = 16),
+            y = 0.98
+            ),
+          showlegend = TRUE,
+          margin = list(l = 10, r = 10, t = 10, b = 40),
+          legend = list(
+            orientation = "h",
+            y = -0.2,
+            x = 0.5,
+            xanchor = "center"
+          ),
+          hovermode = "closest",
+          font = list(size = 10)
+        ) %>%
+        config(displayModeBar = FALSE)
     })
-    
-    # output$downloadPlot <- downloadHandler(
-    #   filename = function() {
-    #     paste("distribution_employees_", Sys.Date(), ".png", sep = "")
-    #   },
-    #   content = function(file) {
-    #     ggsave(file, plot = last_plot(), device = "png")
-    #   }
-    # )
   })
 }

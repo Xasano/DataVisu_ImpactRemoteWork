@@ -79,7 +79,7 @@ dashboardUI <- dashboardPage(
             div(class = "vis-card",
               style = "height: 500px;",
               div(class = "vis-content",
-                barchartUI("overview_barchart")
+                barchartUIbis("overview_barchart")
               ),
               div(class = "vis-footer",
                 actionLink("goto_barchart", 
