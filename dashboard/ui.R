@@ -2,7 +2,7 @@ dashboardUI <- dashboardPage(
   skin = "blue",
   dashboardHeader(
     title = span(
-      tags$img(src = "https://cdn-icons-png.flaticon.com/512/1786/1786971.png", 
+            tags$img(src = "https://cdn-icons-png.flaticon.com/512/1786/1786971.png", 
                height = "30px", 
                style = "margin-right: 10px;"),
       "Télétravail & Santé Mentale"
@@ -17,7 +17,8 @@ dashboardUI <- dashboardPage(
       menuItem("Vue d'ensemble", tabName = "overview", icon = icon("dashboard")),
       menuItem("Santé Mentale", tabName = "sunburst", icon = icon("brain")),
       menuItem("Relations", tabName = "parallelset", icon = icon("project-diagram")),
-      menuItem("Distribution Horaire", tabName = "barchart", icon = icon("clock"))
+      menuItem("Distribution Horaire", tabName = "barchart", icon = icon("clock")),
+      menuItem("Hiérarchie des Soins", tabName = "circularPacking", icon = icon("medkit"))
     )
   ),
   
@@ -112,6 +113,14 @@ dashboardUI <- dashboardPage(
         div(class = "vis-cardbis",
           div(class = "vis-contentbis",
             barchartUI("barchart")
+          )
+        )
+      ),
+
+      tabItem(tabName = "circularPacking",
+        div(class = "vis-cardbis",
+          div(class = "vis-contentbis",
+            circularPackingUi("circularPacking")
           )
         )
       )
