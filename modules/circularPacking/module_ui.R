@@ -1,4 +1,4 @@
-circularPackingUi <- function(id) {
+circularPackingUI <- function(id) {
   ns <- NS(id)
   fluidPage(
   titlePanel("Circle Packing - Hiérarchie des Soins de Santé Mentale"),

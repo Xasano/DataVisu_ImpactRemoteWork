@@ -51,8 +51,22 @@ dashboardUI <- dashboardPage(
             )
           ),
           
-          # Espace pour les 2 autres techniques (à ajouter plus tard)
-          column(width = 4),
+          # Circular Packing (1/3 de la largeur)
+          column(width = 4,
+            div(class = "vis-card",
+              style = "height: 400px;",
+              div(class = "vis-content",
+                circularPackingUIBis("circularPackingBis")
+              ),
+              div(class = "vis-footer",
+                actionLink("goto_circular", 
+                        HTML("Explorer <i class='fa fa-arrow-right ml-2'></i>"),
+                        class = "explore-btn")
+              )
+            )
+          ),
+
+          # Placeholder (1/3 de la largeur)
           column(width = 4)
         ),
         
@@ -120,7 +134,7 @@ dashboardUI <- dashboardPage(
       tabItem(tabName = "circularPacking",
         div(class = "vis-cardbis",
           div(class = "vis-contentbis",
-            circularPackingUi("circularPacking")
+            circularPackingUI("circularPacking")
           )
         )
       )

@@ -255,17 +255,6 @@ circularPackingServer <- function(id, shared_data) {
     graph <- data$graph
     vertices_data <- data$vertices_data
     
-    # Définir la palette de couleurs avec des tons plus doux
-    color_palette <- c(
-      "region" = "white",
-      "gender" = "#F8F9FA",     # Gris très clair pour le genre
-      "Depression" = "#AED6F1",  # Bleu clair
-      "Burnout" = "#F5B7B1",    # Rouge clair
-      "Anxiety" = "#A9DFBF",    # Vert clair
-      "None" = "#FCF3CF",       # Jaune clair
-      "access" = "#D5D8DC"      # Gris clair pour l'accès
-    )
-    
     # Créer le layout
     layout <- create_layout(graph, 'circlepack', weight = vertices_data$percentage)
     
@@ -278,9 +267,8 @@ circularPackingServer <- function(id, shared_data) {
     layout$show_label <- layout$percentage >= input$label_threshold
     
     ggraph(layout) +
-      geom_node_circle(aes(fill = condition_type, alpha = -depth)) +
+      geom_node_circle(aes(alpha = -depth)) +
       scale_alpha_continuous(range = c(0.8, 0.2)) +
-      scale_fill_manual(values = color_palette) +
       geom_text_repel(
         data = subset(layout, show_label),
         aes(

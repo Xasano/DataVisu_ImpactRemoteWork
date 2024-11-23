@@ -22,7 +22,7 @@ dashboardServer <- function(input, output, session) {
   sunburstServerbis("overview_sunburst", reactive(list(data = global_data())))
   parallelsetServerbis("overview_parallel", reactive(list(data = global_data())))
   barchartServerbis("overview_barchart", reactive(list(data = global_data())))
-  # circularPackingServerbis("overview_circular", reactive(list(data = global_data())))
+  circularPackingServerBis("circularPackingBis", reactive(list(data = global_data())))
   
   sunburstServer("sunburst", reactive(list(data = global_data())))
   parallelsetServer("parallelset", reactive(list(data = global_data())))
