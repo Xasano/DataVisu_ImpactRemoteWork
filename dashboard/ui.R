@@ -33,73 +33,76 @@ dashboardUI <- dashboardPage(
       tabItem(
         tabName = "overview",
         
-        # Première rangée avec 3 visualisations
+        # Première rangée avec 4 visualisations
         fluidRow(
-          # Sunburst (1/3 de la largeur)
+          # Première rangée
           column(
-            width = 4,
+            width = 6,
             div(class = "vis-card",
-              style = "height: 400px;",
+              style = "height: 450px; margin-bottom: 20px;", # Hauteur augmentée
               div(class = "vis-content",
-                sunburstUIbis("overview_sunburst")
-              ),
-              div(class = "vis-footer",
-                actionLink("goto_sunburst", 
-                        HTML("Explorer <i class='fa fa-arrow-right ml-2'></i>"),
-                        class = "explore-btn")
+                style = "position: relative;",
+                sunburstUIbis("overview_sunburst"),
+                div(
+                  style = "position: absolute; bottom: 10px; right: 15px;",
+                  actionLink("goto_sunburst", 
+                          HTML("Explorer →"),
+                          class = "explore-btn")
+                )
               )
             )
           ),
           
-          # Circular Packing (1/3 de la largeur)
-          column(width = 4,
+          column(
+            width = 6,
             div(class = "vis-card",
-              style = "height: 400px;",
+              style = "height: 450px; margin-bottom: 20px;", # Hauteur augmentée
               div(class = "vis-content",
-                circularPackingUIBis("circularPackingBis")
-              ),
-              div(class = "vis-footer",
-                actionLink("goto_circular", 
-                        HTML("Explorer <i class='fa fa-arrow-right ml-2'></i>"),
-                        class = "explore-btn")
+                style = "position: relative;",
+                circularPackingUIBis("circularPackingBis"),
+                div(
+                  style = "position: absolute; bottom: 10px; right: 15px;",
+                  actionLink("goto_circular", 
+                          HTML("Explorer →"),
+                          class = "explore-btn")
+                )
               )
             )
-          ),
-
-          # Placeholder (1/3 de la largeur)
-          column(width = 4)
+          )
         ),
-        
-        # Deuxième rangée avec parallel set et barchart
+
+        # Deuxième rangée
         fluidRow(
-          # Parallel set
           column(
             width = 6,
             div(class = "vis-card",
-              style = "height: 500px;",
+              style = "height: 450px;", # Hauteur augmentée
               div(class = "vis-content",
-                parallelsetUIbis("overview_parallel")
-              ),
-              div(class = "vis-footer",
-                actionLink("goto_parallel", 
-                        HTML("Explorer <i class='fa fa-arrow-right ml-2'></i>"),
-                        class = "explore-btn")
+                style = "position: relative;",
+                parallelsetUIbis("overview_parallel"),
+                div(
+                  style = "position: absolute; bottom: 10px; right: 15px;",
+                  actionLink("goto_parallel", 
+                          HTML("Explorer →"),
+                          class = "explore-btn")
+                )
               )
             )
           ),
           
-          # Barchart
           column(
             width = 6,
             div(class = "vis-card",
-              style = "height: 500px;",
+              style = "height: 450px;", # Hauteur augmentée
               div(class = "vis-content",
-                barchartUIbis("overview_barchart")
-              ),
-              div(class = "vis-footer",
-                actionLink("goto_barchart", 
-                        HTML("Explorer <i class='fa fa-arrow-right ml-2'></i>"),
-                        class = "explore-btn")
+                style = "position: relative;",
+                barchartUIbis("overview_barchart"),
+                div(
+                  style = "position: absolute; bottom: 10px; right: 15px;",
+                  actionLink("goto_barchart", 
+                          HTML("Explorer →"),
+                          class = "explore-btn")
+                )
               )
             )
           )

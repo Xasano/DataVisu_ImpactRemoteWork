@@ -1,4 +1,3 @@
-# Server Component version simplifiée
 barchartServerbis <- function(id, shared_data) {
   moduleServer(id, function(input, output, session) {
     
@@ -56,31 +55,33 @@ barchartServerbis <- function(id, shared_data) {
         ) +
         theme_minimal() +
         theme(
-          axis.text = element_text(size = 10),
-          axis.title = element_text(size = 10),
+          axis.text = element_text(size = 12),
+          axis.title = element_text(size = 12),
           legend.position = "bottom",
-          legend.title = element_text(size = 10),
-          legend.text = element_text(size = 9),
-          plot.margin = margin(5, 5, 5, 5)
+          legend.title = element_text(size = 11),
+          legend.text = element_text(size = 10),
+          plot.margin = margin(10, 10, 30, 10)
         )
       
       ggplotly(p, tooltip = "text") %>%
         layout(
-            title = list(
-            text = "Analyse de l'equilibre travail-vie",
-            font = list(size = 16),
+          title = list(
+            text = "Analyse de l'équilibre travail-vie",
+            font = list(size = 14),
             y = 0.98
-            ),
+          ),
           showlegend = TRUE,
-          margin = list(l = 10, r = 10, t = 10, b = 40),
+          margin = list(l = 60, r = 20, t = 40, b = 60),
           legend = list(
             orientation = "h",
-            y = -0.2,
+            y = -0.15,
             x = 0.5,
-            xanchor = "center"
+            xanchor = "center",
+            font = list(size = 10)
           ),
           hovermode = "closest",
-          font = list(size = 10)
+          autosize = TRUE,
+          height = 360 
         ) %>%
         config(displayModeBar = FALSE)
     })

@@ -75,52 +75,54 @@ parallelsetServerbis <- function(id, shared_data) {
     })
     
     output$plot <- renderPlotly({
-        req(plot_data())
-        
-        title_annotations <- list(
-            list(x = 0, y = 1.02, xref = "paper", yref = "paper", # Ajustement de la position des titres
-                text = "Mode de Travail", showarrow = FALSE, font = list(size = 14)),
-            list(x = 0.5, y = 1.02, xref = "paper", yref = "paper",
-                text = "Niveau de Stress", showarrow = FALSE, font = list(size = 14)),
-            list(x = 1, y = 1.02, xref = "paper", yref = "paper",
-                text = "Santé Mentale", showarrow = FALSE, font = list(size = 14))
+      req(plot_data())
+      
+      title_annotations <- list(
+        list(x = 0, y = 1.02, xref = "paper", yref = "paper",
+            text = "Mode de Travail", showarrow = FALSE, font = list(size = 12)),
+        list(x = 0.5, y = 1.02, xref = "paper", yref = "paper",
+            text = "Niveau de Stress", showarrow = FALSE, font = list(size = 12)),
+        list(x = 1, y = 1.02, xref = "paper", yref = "paper",
+            text = "Santé Mentale", showarrow = FALSE, font = list(size = 12))
+      )
+      
+      plot_ly(
+        type = "sankey",
+        orientation = "h",
+        node = list(
+          label = paste0(plot_data()$nodes$node, "<br>Count: ", plot_data()$nodes$count),
+          x = plot_data()$nodes$x,
+          y = plot_data()$nodes$y / plot_data()$total_height,
+          pad = 10,  # Padding réduit
+          thickness = plot_data()$nodes$count / plot_data()$total_height * 35, # Épaisseur réduite
+          line = list(color = "black", width = 0.5),
+          color = colorRampPalette(c("#E6F3FF", "#2171B5"))(nrow(plot_data()$nodes))
+        ),
+        link = list(
+          source = plot_data()$links$source,
+          target = plot_data()$links$target,
+          value = plot_data()$links$value,
+          hoverlabel = list(bgcolor = "white", font = list(size = 10))
         )
-        
-        plot_ly(
-            type = "sankey",
-            orientation = "h",
-            node = list(
-            label = paste0(plot_data()$nodes$node, "<br>Count: ", plot_data()$nodes$count),
-            x = plot_data()$nodes$x,
-            y = plot_data()$nodes$y / plot_data()$total_height,
-            pad = 15,
-            thickness = plot_data()$nodes$count / plot_data()$total_height * 40,
-            line = list(color = "black", width = 0.5),
-            color = colorRampPalette(c("#E6F3FF", "#2171B5"))(nrow(plot_data()$nodes))
-            ),
-            link = list(
-            source = plot_data()$links$source,
-            target = plot_data()$links$target,
-            value = plot_data()$links$value,
-            hoverlabel = list(bgcolor = "white", font = list(size = 10))
-            )
-        ) %>%
-            layout(
-            title = list(
+      ) %>%
+        layout(
+          title = list(
             text = "Analyse de la productivité selon le lieu de travail et le stress",
-            font = list(size = 16),
-            y = 0.98
-            ),
-            font = list(size = 12),
-            xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-            yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-            hovermode = "closest",
-            annotations = title_annotations,
-            margin = list(l = 20, r = 20, t = 40, b = 20),
-            autosize = TRUE,
-            height = 600 # Augmentation de la hauteur du graphique
-            ) %>%
-            config(displayModeBar = FALSE, responsive = TRUE)
-        })
+            font = list(size = 14),
+            y = 0.98,
+            x = 0.5,
+            xanchor = "center"
+          ),
+          font = list(size = 10),
+          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+          hovermode = "closest",
+          annotations = title_annotations,
+          margin = list(l = 10, r = 10, t = 30, b = 10), # Marges réduites
+          autosize = TRUE,
+          height = 360  # Hauteur ajustée
+        ) %>%
+        config(displayModeBar = FALSE, responsive = TRUE)
     })
+  })
 }
