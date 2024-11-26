@@ -13,6 +13,7 @@ library(bslib)
 library(igraph)
 library(ggraph)
 library(ggrepel)
+library(forcats)
 
 # Charger les composants UI et fonctions globales
 source("R/ui_components.R")
@@ -34,6 +35,10 @@ source("modules/parallelset/module_ui.R")
 source("modules/parallelset/module_server.R")
 source("modules/parallelset/module_serverbis.R")
 source("modules/parallelset/module_uibis.R")
+source("modules/multiplesBarChart/module_ui.R")
+source("modules/multiplesBarChart/module_server.R")
+source("modules/multiplesBarChart/module_uibis.R")
+source("modules/multiplesBarChart/module_serverbis.R")
 
 # Source du dashboard principal
 source("dashboard/ui.R")

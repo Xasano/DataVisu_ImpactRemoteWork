@@ -19,6 +19,7 @@ dashboardUI <- dashboardPage(
       menuItem("Relations", tabName = "parallelset", icon = icon("project-diagram")),
       menuItem("Distribution Horaire", tabName = "barchart", icon = icon("clock")),
       menuItem("Hiérarchie des Soins", tabName = "circularPacking", icon = icon("medkit"))
+      menuItem("Activité Physique", tabName = "multiplesBarChart", icon = icon("running"))
     )
   ),
   
