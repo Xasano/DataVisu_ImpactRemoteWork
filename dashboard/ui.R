@@ -2,7 +2,7 @@ dashboardUI <- dashboardPage(
   skin = "blue",
   dashboardHeader(
     title = span(
-            tags$img(src = "https://cdn-icons-png.flaticon.com/512/1786/1786971.png", 
+      tags$img(src = "https://cdn-icons-png.flaticon.com/512/1786/1786971.png", 
                height = "30px", 
                style = "margin-right: 10px;"),
       "Télétravail & Santé Mentale"
@@ -25,7 +25,29 @@ dashboardUI <- dashboardPage(
   dashboardBody(
     useShinyjs(),
     tags$head(
-      tags$link(rel = "stylesheet", type = "text/css", href = "css/custom.css")
+      tags$link(rel = "stylesheet", type = "text/css", href = "css/custom.css"),
+      tags$style(HTML("
+        .row {
+          margin-left: -5px;
+          margin-right: -5px;
+          margin-bottom: 10px;
+        }
+        .col-sm-6 {
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+        .vis-card {
+          height: 480px !important;
+          margin-bottom: 10px !important;
+        }
+        .filter-bar {
+          background: white;
+          padding: 15px;
+          border-radius: 8px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+          margin-bottom: 20px;
+        }
+      "))
     ),
     
     tabItems(
@@ -33,13 +55,28 @@ dashboardUI <- dashboardPage(
       tabItem(
         tabName = "overview",
         
-        # Première rangée avec 4 visualisations
+        # Barre de filtres globaux
+        div(class = "filter-bar",
+          fluidRow(
+            column(
+              width = 3,
+              selectInput(
+                "global_region",
+                "Région",
+                choices = NULL,
+                selected = "Europe",
+                width = "100%"
+              )
+            )
+          )
+        ),
+        
+        # Première rangée
         fluidRow(
-          # Première rangée
           column(
             width = 6,
             div(class = "vis-card",
-              style = "height: 450px; margin-bottom: 20px;", # Hauteur augmentée
+              style = "height: 450px; margin-bottom: 20px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 sunburstUIbis("overview_sunburst"),
@@ -56,7 +93,7 @@ dashboardUI <- dashboardPage(
           column(
             width = 6,
             div(class = "vis-card",
-              style = "height: 450px; margin-bottom: 20px;", # Hauteur augmentée
+              style = "height: 450px; margin-bottom: 20px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 circularPackingUIBis("circularPackingBis"),
@@ -76,7 +113,7 @@ dashboardUI <- dashboardPage(
           column(
             width = 6,
             div(class = "vis-card",
-              style = "height: 450px;", # Hauteur augmentée
+              style = "height: 450px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 parallelsetUIbis("overview_parallel"),
@@ -93,7 +130,7 @@ dashboardUI <- dashboardPage(
           column(
             width = 6,
             div(class = "vis-card",
-              style = "height: 450px;", # Hauteur augmentée
+              style = "height: 450px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 barchartUIbis("overview_barchart"),
@@ -109,7 +146,7 @@ dashboardUI <- dashboardPage(
         )
       ),
       
-      # Autres onglets inchangés...
+      # Vues détaillées
       tabItem(tabName = "sunburst",
         div(class = "vis-cardbis",
           div(class = "vis-contentbis",

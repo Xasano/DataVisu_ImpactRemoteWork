@@ -4,10 +4,7 @@ parallelsetServerbis <- function(id, shared_data) {
     plot_data <- reactive({
       req(shared_data()$data)
       
-      df <- shared_data()$data %>%
-        # Utiliser l'Europe comme région par défaut
-        filter(Region == "Europe") %>%
-        select(Work_Location, Stress_Level, Mental_Health_Condition)
+      df <- shared_data()$data
       
       calculate_positions <- function(data, group_col) {
         data %>%
