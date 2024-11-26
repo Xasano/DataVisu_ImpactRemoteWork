@@ -6,26 +6,12 @@ circularPackingServer <- function(id, shared_data) {
     shared_data()$data
   })
   
-  # Créer un mapping des noms de régions
-  region_names <- c(
-    "NAM" = "Amérique du Nord",
-    "EUR" = "Europe",
-    "APAC" = "Asie-Pacifique",
-    "LAT" = "Amérique Latine",
-    "AFR" = "Afrique",
-    "ME" = "Moyen-Orient"
-  )
-  
-  # Mettre à jour les choix de région avec les noms traduits
+  # Mettre à jour les choix de région avec tous les noms de régions
   observe({
     regions <- sort(unique(shared_data()$data$Region))
     named_regions <- c("Toutes les régions" = "Toutes les régions")
     for(region in regions) {
-      named_regions[region] <- ifelse(
-        region %in% names(region_names),
-        region_names[region],
-        region
-      )
+      named_regions[region] <- region
     }
     updateSelectInput(session, "region", choices = named_regions)
   })
@@ -38,11 +24,7 @@ circularPackingServer <- function(id, shared_data) {
     filtered_data <- if(input$region == "Toutes les régions") {
       shared_data()$data
     } else {
-      region_id <- names(region_names)[region_names == input$region]
-      if(length(region_id) == 0) {
-        region_id <- input$region
-      }
-      shared_data()$data %>% filter(Region == region_id)
+      shared_data()$data %>% filter(Region == input$region)
     }
     
     # Calculer le total pour la sélection
@@ -72,20 +54,25 @@ circularPackingServer <- function(id, shared_data) {
         summarise(
           count = n(),
           .groups = 'drop'
-        ) %>%
-        mutate(
-          percentage = count / total_filtered * 100,
-          name = paste0("gender_", Gender),
-          display_name = sprintf("%s\n%.1f%%", Gender, percentage),
-          parent = if(input$region == "Toutes les régions") "Global" else input$region,
-          depth = 1,
-          id = row_number() + last_id,
-          condition_type = "gender"
-        ) %>%
-        select(name, display_name, parent, count, percentage, depth, id, condition_type)
+        )
       
-      hierarchy_levels[[length(hierarchy_levels) + 1]] <- gender_level
-      last_id <- max(gender_level$id)
+      # Vérifier si le data frame n'est pas vide avant de continuer
+      if (nrow(gender_level) > 0) {
+        gender_level <- gender_level %>%
+          mutate(
+            percentage = count / total_filtered * 100,
+            name = paste0("gender_", Gender),
+            display_name = sprintf("%s\n%.1f%%", Gender, percentage),
+            parent = if(input$region == "Toutes les régions") "Global" else input$region,
+            depth = 1,
+            id = seq_len(n()) + last_id,
+            condition_type = "gender"
+          ) %>%
+          select(name, display_name, parent, count, percentage, depth, id, condition_type)
+        
+        hierarchy_levels[[length(hierarchy_levels) + 1]] <- gender_level
+        last_id <- max(gender_level$id, 0)
+      }
     }
     
     # Niveau 3: Conditions de santé (si sélectionné)
@@ -109,7 +96,7 @@ circularPackingServer <- function(id, shared_data) {
             display_name = sprintf("%s\n%.1f%%", Mental_Health_Condition, percentage),
             parent = paste0("gender_", Gender),
             depth = 2,
-            id = row_number() + last_id,
+            id = seq_len(n()) + last_id,
             condition_type = Mental_Health_Condition
           )
       } else {
@@ -125,16 +112,19 @@ circularPackingServer <- function(id, shared_data) {
             display_name = sprintf("%s\n%.1f%%", Mental_Health_Condition, percentage),
             parent = if(input$region == "Toutes les régions") "Global" else input$region,
             depth = 1,
-            id = row_number() + last_id,
+            id = seq_len(n()) + last_id,
             condition_type = Mental_Health_Condition
           )
       }
       
-      condition_level <- condition_level %>%
-        select(name, display_name, parent, count, percentage, depth, id, condition_type)
-      
-      hierarchy_levels[[length(hierarchy_levels) + 1]] <- condition_level
-      last_id <- max(condition_level$id)
+      # Vérifier si le data frame n'est pas vide avant de continuer
+      if (nrow(condition_level) > 0) {
+        condition_level <- condition_level %>%
+          select(name, display_name, parent, count, percentage, depth, id, condition_type)
+        
+        hierarchy_levels[[length(hierarchy_levels) + 1]] <- condition_level
+        last_id <- max(condition_level$id, last_id)
+      }
     }
     
     # Niveau 4: Accès aux soins (si sélectionné)
@@ -159,7 +149,8 @@ circularPackingServer <- function(id, shared_data) {
                                    ifelse(Access_to_Mental_Health_Resources == "Yes", "Avec accès", "Sans accès"),
                                    percentage),
             parent = paste0("condition_", Gender, "_", Mental_Health_Condition),
-            depth = 3
+            depth = 3,
+            id = seq_len(n()) + last_id
           )
       } else if ("gender" %in% input$levels) {
         access_level <- filtered_data %>%
@@ -181,7 +172,8 @@ circularPackingServer <- function(id, shared_data) {
                                    ifelse(Access_to_Mental_Health_Resources == "Yes", "Avec accès", "Sans accès"),
                                    percentage),
             parent = paste0("gender_", Gender),
-            depth = 2
+            depth = 2,
+            id = seq_len(n()) + last_id
           )
       } else if ("condition" %in% input$levels) {
         access_level <- filtered_data %>%
@@ -203,7 +195,8 @@ circularPackingServer <- function(id, shared_data) {
                                    ifelse(Access_to_Mental_Health_Resources == "Yes", "Avec accès", "Sans accès"),
                                    percentage),
             parent = paste0("condition_", Mental_Health_Condition),
-            depth = 2
+            depth = 2,
+            id = seq_len(n()) + last_id
           )
       } else {
         access_level <- filtered_data %>%
@@ -219,26 +212,30 @@ circularPackingServer <- function(id, shared_data) {
                                    ifelse(Access_to_Mental_Health_Resources == "Yes", "Avec accès", "Sans accès"),
                                    percentage),
             parent = if(input$region == "Toutes les régions") "Global" else input$region,
-            depth = 1
+            depth = 1,
+            id = seq_len(n()) + last_id
           )
       }
       
-      access_level <- access_level %>%
-        mutate(
-          id = row_number() + last_id,
-          condition_type = "access"
-        ) %>%
-        select(name, display_name, parent, count, percentage, depth, id, condition_type)
-      
-      hierarchy_levels[[length(hierarchy_levels) + 1]] <- access_level
+      # Vérifier si le data frame n'est pas vide avant de continuer
+      if (nrow(access_level) > 0) {
+        access_level <- access_level %>%
+          mutate(
+            condition_type = "access"
+          ) %>%
+          select(name, display_name, parent, count, percentage, depth, id, condition_type)
+        
+        hierarchy_levels[[length(hierarchy_levels) + 1]] <- access_level
+        last_id <- max(access_level$id, last_id)
+      }
     }
     
     # Combiner tous les niveaux
     hierarchy_data <- do.call(rbind, hierarchy_levels)
     
-    # Créer les arêtes du graphe
+    # Créer les arêtes du graphe (avec vérification)
     edges <- hierarchy_data %>%
-      filter(parent != "") %>%
+      filter(!is.na(parent) & parent != "") %>%
       select(from = parent, to = name)
     
     # Créer le graphe
