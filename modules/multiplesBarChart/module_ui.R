@@ -13,9 +13,9 @@ multiplesBarChartUI <- function(id) {
       ),
       
       mainPanel(
-        plotOutput(ns("dailyActivityPlot"), height = "33%"),
-        plotOutput(ns("weeklyActivityPlot"), height = "33%"),
-        plotOutput(ns("noActivityPlot"), height = "33%")
+        plotOutput(ns("dailyActivityPlot")),
+        plotOutput(ns("weeklyActivityPlot")),
+        plotOutput(ns("noActivityPlot"))
       )
     )
   )
