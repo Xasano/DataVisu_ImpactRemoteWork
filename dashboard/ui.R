@@ -18,7 +18,8 @@ dashboardUI <- dashboardPage(
       menuItem("Santé Mentale", tabName = "sunburst", icon = icon("brain")),
       menuItem("Relations", tabName = "parallelset", icon = icon("project-diagram")),
       menuItem("Distribution Horaire", tabName = "barchart", icon = icon("clock")),
-      menuItem("Hiérarchie des Soins", tabName = "circularPacking", icon = icon("medkit"))
+      menuItem("Hiérarchie des Soins", tabName = "circularPacking", icon = icon("medkit")),
+      menuItem("Activité Physique", tabName = "multiplesBarChart", icon = icon("running"))
     )
   ),
   
@@ -74,7 +75,7 @@ dashboardUI <- dashboardPage(
         # Première rangée
         fluidRow(
           column(
-            width = 6,
+            width = 4,
             div(class = "vis-card",
               style = "height: 450px; margin-bottom: 20px;",
               div(class = "vis-content",
@@ -91,7 +92,7 @@ dashboardUI <- dashboardPage(
           ),
           
           column(
-            width = 6,
+            width = 4,
             div(class = "vis-card",
               style = "height: 450px; margin-bottom: 20px;",
               div(class = "vis-content",
@@ -100,6 +101,22 @@ dashboardUI <- dashboardPage(
                 div(
                   style = "position: absolute; bottom: 10px; right: 15px;",
                   actionLink("goto_circular", 
+                          HTML("Explorer →"),
+                          class = "explore-btn")
+                )
+              )
+            )
+          ),
+          column(
+            width = 4,
+            div(class = "vis-card",
+              style = "height: 450px; margin-bottom: 20px;",
+              div(class = "vis-content",
+                style = "position: relative;",
+                multiplesBarChartUIBis("overview_multiplesBarChart"),
+                div(
+                  style = "position: absolute; bottom: 10px; right: 15px;",
+                  actionLink("goto_multiplesBarChart", 
                           HTML("Explorer →"),
                           class = "explore-btn")
                 )
@@ -136,7 +153,7 @@ dashboardUI <- dashboardPage(
                 barchartUIbis("overview_barchart"),
                 div(
                   style = "position: absolute; bottom: 10px; right: 15px;",
-                  actionLink("goto_barchart", 
+                  actionLink("goto_multiples", 
                           HTML("Explorer →"),
                           class = "explore-btn")
                 )
@@ -175,6 +192,14 @@ dashboardUI <- dashboardPage(
         div(class = "vis-cardbis",
           div(class = "vis-contentbis",
             circularPackingUI("circularPacking")
+          )
+        )
+      ),
+
+      tabItem(tabName = "multiplesBarChart",
+        div(class = "vis-cardbis",
+          div(class = "vis-contentbis",
+            multiplesBarChartUI("multiplesBarChart")
           )
         )
       )

@@ -38,12 +38,14 @@ dashboardServer <- function(input, output, session) {
   parallelsetServerbis("overview_parallel", reactive(list(data = filtered_dashboard_data())))
   barchartServerbis("overview_barchart", reactive(list(data = filtered_dashboard_data())))
   circularPackingServerBis("circularPackingBis", reactive(list(data = filtered_dashboard_data())))
+  multiplesBarChartServerBis("multiplesBarChartBis", reactive(list(data = filtered_dashboard_data())))
   
   # Initialisation des modules détaillés avec données complètes
   sunburstServer("sunburst", reactive(list(data = global_data())))
   parallelsetServer("parallelset", reactive(list(data = global_data())))
   barchartServer("barchart", reactive(list(data = global_data())))
   circularPackingServer("circularPacking", reactive(list(data = global_data())))
+  multiplesBarChartServer("multiplesBarChart", reactive(list(data = global_data())))
 
   # Navigation
   observeEvent(input$goto_sunburst, {
@@ -60,5 +62,9 @@ dashboardServer <- function(input, output, session) {
 
   observeEvent(input$goto_circular, {
     updateTabItems(session, "sidebar_menu", "circularPacking")
+  })
+
+  observeEvent(input$goto_multiplesBarChart, {
+    updateTabItems(session, "sidebar_menu", "multiplesBarChart")
   })
 }
