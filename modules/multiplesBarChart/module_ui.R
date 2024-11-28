@@ -1,18 +1,22 @@
-ui <- fluidPage(
-  titlePanel("Analyse de l'impact du travail à distance sur la santé mentale"),
+multiplesBarChartUI <- function(id) {
+  ns <- NS(id)
   
-  sidebarLayout(
-    sidebarPanel(
-      selectInput("region", "Région:",
-                  choices = c("All", "Europe", "North America", "Asia", 
-                              "Oceania", "South America", "Africa"),
-                  selected = "All")
-    ),
+  fluidPage(
+    titlePanel("Fréquence de l'activité physique en fonction du mode de travail"),
     
-    mainPanel(
-      plotOutput("noActivityPlot", height = "300px"),
-      plotOutput("weeklyActivityPlot", height = "300px"),
-      plotOutput("dailyActivityPlot", height = "300px")
+    sidebarLayout(
+      sidebarPanel(
+        selectInput(ns("region"), "Région:",
+                    choices = c("All", "Europe", "North America", "Asia", 
+                                "Oceania", "South America", "Africa"),
+                    selected = "All")
+      ),
+      
+      mainPanel(
+        plotOutput(ns("dailyActivityPlot"), height = "33%"),
+        plotOutput(ns("weeklyActivityPlot"), height = "33%"),
+        plotOutput(ns("noActivityPlot"), height = "33%")
+      )
     )
   )
-)
+}

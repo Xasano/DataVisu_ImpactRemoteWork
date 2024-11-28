@@ -1,8 +1,14 @@
-ui <- fluidPage(
-  titlePanel("Analyse de l'impact du travail à distance sur la santé mentale"),
-    mainPanel(
-      plotOutput("noActivityPlot", height = "300px"),
-      plotOutput("weeklyActivityPlot", height = "300px"),
-      plotOutput("dailyActivityPlot", height = "300px")
+multiplesBarChartUIBis <- function(id) {
+  ns <- NS(id)
+
+  tagList(
+    div(
+      class = "visualization-section",
+      style = "background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); height: 400px; margin-bottom: 10px;",
+      div(
+        style = "width: 100%; height: calc(100% - 20px); padding: 20px;",
+        plotOutput(ns("dailyActivityPlot"))
+      )
     )
-)
+  )
+}
