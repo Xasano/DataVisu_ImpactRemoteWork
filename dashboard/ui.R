@@ -29,17 +29,20 @@ dashboardUI <- dashboardPage(
       tags$link(rel = "stylesheet", type = "text/css", href = "css/custom.css"),
       tags$style(HTML("
         .row {
-          margin-left: -5px;
-          margin-right: -5px;
-          margin-bottom: 10px;
+          margin-left: -2px;  /* Réduit de -5px à -2px */
+          margin-right: -2px; /* Réduit de -5px à -2px */
+          margin-bottom: 2px; /* Réduit de 10px à 5px */
         }
-        .col-sm-6 {
-          padding-left: 5px;
-          padding-right: 5px;
+
+        .col-sm-6, .col-sm-4 {
+          padding-left: 2px;  /* Réduit de 5px à 2px */
+          padding-right: 2px; /* Réduit de 5px à 2px */
         }
+
+        /* Augmentation de la hauteur des cartes */
         .vis-card {
-          height: 480px !important;
-          margin-bottom: 10px !important;
+          height: 520px !important;     /* Augmenté de 480px à 520px */
+          margin-bottom: 2px !important; /* Réduit de 10px à 5px */
         }
         .filter-bar {
           background: white;
@@ -77,7 +80,6 @@ dashboardUI <- dashboardPage(
           column(
             width = 4,
             div(class = "vis-card",
-              style = "height: 450px; margin-bottom: 20px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 sunburstUIbis("overview_sunburst"),
@@ -94,7 +96,6 @@ dashboardUI <- dashboardPage(
           column(
             width = 4,
             div(class = "vis-card",
-              style = "height: 450px; margin-bottom: 20px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 circularPackingUIBis("circularPackingBis"),
@@ -110,7 +111,6 @@ dashboardUI <- dashboardPage(
           column(
             width = 4,
             div(class = "vis-card",
-              style = "height: 450px; margin-bottom: 20px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 multiplesBarChartUIBis("overview_multiplesBarChart"),
@@ -130,7 +130,7 @@ dashboardUI <- dashboardPage(
           column(
             width = 6,
             div(class = "vis-card",
-              style = "height: 450px;",
+              style = "height: 480px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 parallelsetUIbis("overview_parallel"),
@@ -147,7 +147,7 @@ dashboardUI <- dashboardPage(
           column(
             width = 6,
             div(class = "vis-card",
-              style = "height: 450px;",
+              style = "height: 480px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 barchartUIbis("overview_barchart"),
