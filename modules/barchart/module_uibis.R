@@ -7,10 +7,6 @@ barchartUIbis <- function(id) {
       div(
         style = "width: 100%; height: calc(100% - 30px); padding: 15px;",
         plotlyOutput(ns("barChart"), height = "100%")
-      ),
-      div(
-        style = "position: absolute; bottom: 10px; right: 15px;",
-        tags$a(href = "#", class = "explore-btn", "Explorer →")
       )
     )
   )

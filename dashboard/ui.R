@@ -26,33 +26,8 @@ dashboardUI <- dashboardPage(
   dashboardBody(
     useShinyjs(),
     tags$head(
-      tags$link(rel = "stylesheet", type = "text/css", href = "css/custom.css"),
-      tags$style(HTML("
-        .row {
-          margin-left: -2px;  /* Réduit de -5px à -2px */
-          margin-right: -2px; /* Réduit de -5px à -2px */
-          margin-bottom: 2px; /* Réduit de 10px à 5px */
-        }
-
-        .col-sm-6, .col-sm-4 {
-          padding-left: 2px;  /* Réduit de 5px à 2px */
-          padding-right: 2px; /* Réduit de 5px à 2px */
-        }
-
-        /* Augmentation de la hauteur des cartes */
-        .vis-card {
-          height: 520px !important;     /* Augmenté de 480px à 520px */
-          margin-bottom: 2px !important; /* Réduit de 10px à 5px */
-        }
-        .filter-bar {
-          background: white;
-          padding: 15px;
-          border-radius: 8px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-          margin-bottom: 20px;
-        }
-      "))
-    ),
+    tags$link(rel = "stylesheet", type = "text/css", href = "./css/custom.css")
+  ),
     
     tabItems(
       # Vue d'ensemble
@@ -129,16 +104,15 @@ dashboardUI <- dashboardPage(
         fluidRow(
           column(
             width = 6,
-            div(class = "vis-card",
+            div(class = "vis-card vis-card-bottom",  # Ajout de la nouvelle classe
               style = "height: 480px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 parallelsetUIbis("overview_parallel"),
                 div(
-                  style = "position: absolute; bottom: 10px; right: 15px;",
+                  class = "explore-btn",
                   actionLink("goto_parallel", 
-                          HTML("Explorer →"),
-                          class = "explore-btn")
+                          HTML("Explorer →"))
                 )
               )
             )
@@ -153,7 +127,7 @@ dashboardUI <- dashboardPage(
                 barchartUIbis("overview_barchart"),
                 div(
                   style = "position: absolute; bottom: 10px; right: 15px;",
-                  actionLink("goto_multiples", 
+                  actionLink("goto_barchart", 
                           HTML("Explorer →"),
                           class = "explore-btn")
                 )
