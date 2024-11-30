@@ -1,11 +1,11 @@
-#DATA VISUALISATION 
+# DATA VISUALISATION 
 
 ## Authors
-FERNANDES DE FARIA Patrick
-LE BORGNE Killian
-BRANDI Julien
-LEFUMEUX Bastien
-BOCOUM Allaye
+- FERNANDES DE FARIA Patrick
+- LE BORGNE Killian
+- BRANDI Julien
+- LEFUMEUX Bastien
+- BOCOUM Allaye
 
 ## Description
 
