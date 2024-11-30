@@ -121,9 +121,9 @@ parallelsetServerbis <- function(id, shared_data) {
       ) %>%
         layout(
           title = list(
-            text = "Analyse de la productivité selon le lieu de travail et le stress",
+            text = "Analyse de la productivité en fonction du lieu de travail,\n du stress et de la santé mentale",
             font = list(size = 14),
-            y = 0.98,
+            y = 0.96,
             x = 0.5,
             xanchor = "center"
           ),

@@ -5,7 +5,7 @@ parallelsetUI <- function(id) {
     fluidRow(
       box(
         width = 12,
-        title = "Analyse de la productivité en fonction du lieu de travail et du stress",
+        title = "Analyse de la productivité en fonction du lieu de travail, du stress et de la santé mentale",
         status = "primary",
         solidHeader = TRUE,
         
