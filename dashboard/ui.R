@@ -26,7 +26,7 @@ dashboardUI <- dashboardPage(
   dashboardBody(
     useShinyjs(),
     tags$head(
-    tags$link(rel = "stylesheet", type = "text/css", href = "./css/custom.css")
+    tags$link(rel = "stylesheet", type = "text/css", href = "/www/css/custom.css")
   ),
     
     tabItems(
@@ -104,13 +104,12 @@ dashboardUI <- dashboardPage(
         fluidRow(
           column(
             width = 6,
-            div(class = "vis-card vis-card-bottom",  # Ajout de la nouvelle classe
-              style = "height: 480px;",
+            div(class = "vis-card vis-card-bottom", 
               div(class = "vis-content",
                 style = "position: relative;",
                 parallelsetUIbis("overview_parallel"),
                 div(
-                  class = "explore-btn",
+                  style = "position: absolute; bottom: 10px; right: 15px;",
                   actionLink("goto_parallel", 
                           HTML("Explorer →"))
                 )
@@ -121,7 +120,6 @@ dashboardUI <- dashboardPage(
           column(
             width = 6,
             div(class = "vis-card",
-              style = "height: 480px;",
               div(class = "vis-content",
                 style = "position: relative;",
                 barchartUIbis("overview_barchart"),

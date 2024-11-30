@@ -73,30 +73,6 @@ customLegendUI <- function(id) {
   )
 }
 
-#' Crée une boîte de statistiques
-#' @param title Titre de la statistique
-#' @param value Valeur à afficher
-#' @param icon_name Nom de l'icône FontAwesome
-#' @param color Couleur de la boîte
-#' @return Un élément UI Shiny
-statsBoxUI <- function(title, value, icon_name, color = "blue") {
-  div(
-    class = "stats-box",
-    style = sprintf("
-      background-color: %s;
-      padding: 20px;
-      border-radius: 8px;
-      color: white;
-      margin: 10px;
-    ", color),
-    icon(icon_name, style = "font-size: 2em;"),
-    h3(value),
-    p(title)
-  )
-}
-
-
-
 #' Lecture et prétraitement des données
 #' @param file_path Chemin vers le fichier CSV
 read_and_process_data <- function(file_path) {

@@ -1,4 +1,3 @@
-# Server Component
 sunburstServerbis <- function(id, shared_data) {
   moduleServer(id, function(input, output, session) {
     mental_health_colors <- list(
@@ -109,16 +108,16 @@ sunburstServerbis <- function(id, shared_data) {
             title = list(
                 text = "Analyse de la Santé Mentale par Profil",
                 font = list(size = 14),
-                y = 0.98,  # Position du titre ajustée plus haut
+                y = 0.98,  
                 yref = "container"
             ),
-            margin = list(l = 20, r = 20, t = 40, b = 20),  # Marges augmentées
+            margin = list(l = 20, r = 20, t = 40, b = 20), 
             autosize = TRUE,
             showlegend = FALSE,
             paper_bgcolor = 'rgba(0,0,0,0)',
             plot_bgcolor = 'rgba(0,0,0,0)',
             width = NULL,
-            height = NULL
+            height = 430 
             ) %>%
             config(
             displayModeBar = FALSE,

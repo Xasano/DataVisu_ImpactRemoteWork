@@ -55,35 +55,42 @@ barchartServerbis <- function(id, shared_data) {
         ) +
         theme_minimal() +
         theme(
+          plot.title = element_text(size = 14, margin = margin(b = 20)),
           axis.text = element_text(size = 12),
           axis.title = element_text(size = 12),
           legend.position = "bottom",
           legend.title = element_text(size = 11),
           legend.text = element_text(size = 10),
-          plot.margin = margin(10, 10, 30, 10)
+          plot.margin = margin(10, 10, 40, 10),
+          panel.grid.major.x = element_line(color = "grey90"),
+          panel.grid.major.y = element_blank()
         )
       
       ggplotly(p, tooltip = "text") %>%
         layout(
+          paper_bgcolor = "rgba(0,0,0,0)",  # Fond transparent
+          plot_bgcolor = "rgba(0,0,0,0)",   # Fond transparent
           title = list(
-            text = "Analyse de l'équilibre travail-vie",
+            text = "Analyse de l'équilibre travail-vie personnelle",
             font = list(size = 14),
-            y = 0.98
+            y = 0.98,
+            x = 0.5,
+            xanchor = "center"
           ),
           showlegend = TRUE,
-          margin = list(l = 60, r = 20, t = 40, b = 60),
+          margin = list(l = 50, r = 20, t = 50, b = 80), 
           legend = list(
             orientation = "h",
-            y = -0.15,
+            y = -0.2,
             x = 0.5,
             xanchor = "center",
             font = list(size = 10)
           ),
           hovermode = "closest",
           autosize = TRUE,
-          height = 360 
+          height = 460 
         ) %>%
-        config(displayModeBar = FALSE)
+        config(displayModeBar = FALSE, responsive = TRUE)
     })
   })
 }

@@ -1,7 +1,6 @@
-source("R/ui_components.R")
-
 sunburstServer <- function(id, shared_data) {
   moduleServer(id, function(input, output, session) {
+    # Définition des couleurs pour chaque condition de santé mentale
     mental_health_colors <- list(
       "Anxiety" = "#FF6B6B",
       "Depression" = "#4A90E2",
@@ -9,23 +8,28 @@ sunburstServer <- function(id, shared_data) {
       "Happy" = "#66BB6A"
     )
     
+    # Initialisation des filtres avec les valeurs disponibles dans les données
     observe({
       req(shared_data()$data)
+      # Mise à jour des options de filtrage pour les conditions de santé mentale
       updateCheckboxGroupInput(
         session, "mental_health",
         choices = c("Anxiety", "Depression", "Burnout", "Happy"),
         selected = c("Anxiety", "Depression", "Burnout", "Happy")
       )
+      # Mise à jour des options de filtrage pour les secteurs d'industrie
       updateCheckboxGroupInput(
         session, "industry",
         choices = sort(unique(shared_data()$data$Industry)),
         selected = sort(unique(shared_data()$data$Industry))
       )
+      # Mise à jour des options de filtrage pour les rôles professionnels
       updateCheckboxGroupInput(
         session, "job_role",
         choices = sort(unique(shared_data()$data$Job_Role)),
         selected = sort(unique(shared_data()$data$Job_Role))
       )
+      # Mise à jour des options de filtrage pour les groupes d'âge
       updateCheckboxGroupInput(
         session, "age_group",
         choices = c("22-30", "31-40", "41-50", "50+"),
@@ -33,8 +37,9 @@ sunburstServer <- function(id, shared_data) {
       )
     })
     
-    # Gestion des sélections
+    # Gestion des boutons de sélection globale
     observeEvent(input$select_all, {
+      # Sélectionner toutes les options pour chaque filtre
       updateCheckboxGroupInput(session, "mental_health",
                              selected = c("Anxiety", "Depression", "Burnout", "Happy"))
       updateCheckboxGroupInput(session, "industry",
@@ -46,15 +51,19 @@ sunburstServer <- function(id, shared_data) {
     })
     
     observeEvent(input$clear_all, {
+      # Désélectionner toutes les options pour chaque filtre
       updateCheckboxGroupInput(session, "mental_health", selected = character(0))
       updateCheckboxGroupInput(session, "industry", selected = character(0))
       updateCheckboxGroupInput(session, "job_role", selected = character(0))
       updateCheckboxGroupInput(session, "age_group", selected = character(0))
     })
 
+    # Préparation des données pour le graphique Sunburst
     data_sunburst <- reactive({
+      # Vérification de la présence des données nécessaires
       req(input$mental_health, input$industry, input$job_role, input$age_group, shared_data()$data)
       
+      # Filtrage des données selon les sélections utilisateur
       df <- shared_data()$data %>%
         filter(
           Mental_Health_Condition %in% input$mental_health,
@@ -63,8 +72,10 @@ sunburstServer <- function(id, shared_data) {
           age_group %in% input$age_group
         )
       
+      # Retourner NULL si aucune donnée ne correspond aux filtres
       if (nrow(df) == 0) return(NULL)
 
+      # Création du premier niveau : Industries
       industries <- df %>%
         group_by(Industry) %>%
         summarise(count = n(), .groups = 'drop') %>%
@@ -76,6 +87,7 @@ sunburstServer <- function(id, shared_data) {
           tooltip = sprintf("Secteur : %s<br>Total : %d employés", Industry, count)
         )
 
+      # Création du deuxième niveau : Rôles professionnels
       roles <- df %>%
         group_by(Industry, Job_Role) %>%
         summarise(count = n(), .groups = 'drop') %>%
@@ -87,6 +99,7 @@ sunburstServer <- function(id, shared_data) {
           tooltip = sprintf("Poste : %s<br>Total : %d employés", Job_Role, count)
         )
 
+      # Création du troisième niveau : Groupes d'âge
       ages <- df %>%
         group_by(Industry, Job_Role, age_group) %>%
         summarise(count = n(), .groups = 'drop') %>%
@@ -98,6 +111,7 @@ sunburstServer <- function(id, shared_data) {
           tooltip = sprintf("Tranche d'âge : %s<br>Total : %d employés", age_group, count)
         )
 
+      # Création du quatrième niveau : Conditions de santé mentale
       mental_health <- df %>%
         group_by(Industry, Job_Role, age_group) %>%
         mutate(total_group = n()) %>%
@@ -118,6 +132,7 @@ sunburstServer <- function(id, shared_data) {
           )
         )
 
+      # Combinaison de tous les niveaux en un seul dataframe
       bind_rows(
         industries %>% select(ids, labels, parents, values = count, colors, tooltip),
         roles %>% select(ids, labels, parents, values = count, colors, tooltip),
@@ -126,14 +141,17 @@ sunburstServer <- function(id, shared_data) {
       )
     })
 
+    # Création du graphique Sunburst
     output$sunburstPlot <- renderPlotly({
       plot_data <- data_sunburst()
       
+      # Afficher un message si aucune donnée n'est disponible
       if (is.null(plot_data)) {
         return(plot_ly() %>% 
                  layout(title = "Aucune donnée à afficher pour la sélection actuelle"))
       }
       
+      # Création du graphique Sunburst avec Plotly
       plot_ly(
         data = plot_data,
         ids = plot_data$ids,

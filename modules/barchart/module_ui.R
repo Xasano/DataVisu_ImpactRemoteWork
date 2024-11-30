@@ -1,4 +1,3 @@
-# UI Module
 barchartUI <- function(id) {
   ns <- NS(id)
   tagList(
@@ -8,7 +7,7 @@ barchartUI <- function(id) {
       style = "background: white; padding: 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); height: 550px; margin: -20px;",
       div(
         style = "background: #A8C5E5; padding: 15px;",
-        h4("Distribution des employés", 
+        h4("Analyse de l'équilibre travail-vie personnelle", 
            style = "margin: 0; color: #2C3E50;")
       ),
       fluidRow(

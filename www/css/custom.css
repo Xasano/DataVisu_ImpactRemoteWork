@@ -42,13 +42,13 @@ body {
 
 /* Visualisations */
 .vis-card {
-  height: 420px;
+  height: 280px;
   position: relative;
   padding: 0;
   margin-bottom: 8px;
 }
 /* Style spécifique pour les visualisations du bas */
-.vis-card[style*="height: 480px"] {
+.vis-card[style*="height: 500px"] {
   margin-top: 20px; /* Ajoute de l'espace au-dessus des visualisations du bas */
 }
 .vis-card-bottom {
@@ -58,7 +58,6 @@ body {
 
 .vis-content {
   width: 100%;
-  height: calc(100% - 20px);
   padding: 20px;
   position: relative;
   overflow: hidden;
@@ -99,9 +98,9 @@ body {
 .filter-bar {
   background: white;
   padding: 15px;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
 }
 
 .filter-group {

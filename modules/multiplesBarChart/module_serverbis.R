@@ -46,10 +46,10 @@ multiplesBarChartServerBis <- function(id, shared_data) {
           legend.title = element_text(size = 10),
           panel.grid.major.x = element_blank()
         ) +
-        scale_fill_manual(values = c("Depression" = "#FF9999",
-                                     "Burnout" = "#FFCC99",
-                                     "Anxiety" = "#9999FF",
-                                     "Happy" = "#99FF99"))
+        scale_fill_manual(values = c("Anxiety" = "#FF6B6B",
+                                  "Depression" = "#4A90E2",
+                                  "Burnout" = "#FFB236",
+                                  "Happy" = "#66BB6A"))
     }
     
     output[["dailyActivityPlot"]] <- renderPlot({

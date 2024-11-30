@@ -92,11 +92,11 @@ parallelsetServerbis <- function(id, shared_data) {
       title_annotations <- list(
         list(x = 0, y = 1.02, xref = "paper", yref = "paper",
              text = "Mode de Travail", showarrow = FALSE, font = list(size = 12)),
-        list(x = 0.33, y = 1.02, xref = "paper", yref = "paper",
+        list(x = 0.33, y = 1.03, xref = "paper", yref = "paper",
              text = "Niveau de Stress", showarrow = FALSE, font = list(size = 12)),
-        list(x = 0.66, y = 1.02, xref = "paper", yref = "paper",
+        list(x = 0.66, y = 1.03, xref = "paper", yref = "paper",
              text = "Santé Mentale", showarrow = FALSE, font = list(size = 12)),
-        list(x = 1, y = 1.02, xref = "paper", yref = "paper",
+        list(x = 1, y = 1.03, xref = "paper", yref = "paper",
              text = "Productivité", showarrow = FALSE, font = list(size = 12))
       )
       
@@ -107,8 +107,8 @@ parallelsetServerbis <- function(id, shared_data) {
           label = paste0(plot_data()$nodes$node, "<br>Count: ", plot_data()$nodes$count),
           x = plot_data()$nodes$x,
           y = plot_data()$nodes$y / plot_data()$total_height,
-          pad = 10,  # Padding réduit
-          thickness = plot_data()$nodes$count / plot_data()$total_height * 35, # Épaisseur réduite
+          pad = 10,  
+          thickness = plot_data()$nodes$count / plot_data()$total_height * 35, 
           line = list(color = "black", width = 0.5),
           color = colorRampPalette(c("#E6F3FF", "#2171B5"))(nrow(plot_data()$nodes))
         ),
@@ -122,8 +122,8 @@ parallelsetServerbis <- function(id, shared_data) {
         layout(
           title = list(
             text = "Analyse de la productivité en fonction du lieu de travail,\n du stress et de la santé mentale",
-            font = list(size = 14),
-            y = 0.96,
+            font = list(size = 13),
+            y = 0.97,
             x = 0.5,
             xanchor = "center"
           ),
@@ -132,11 +132,11 @@ parallelsetServerbis <- function(id, shared_data) {
           yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
           hovermode = "closest",
           annotations = title_annotations,
-          margin = list(l = 10, r = 10, t = 30, b = 10), # Marges réduites
+          margin = list(l = 0, r = 0, t = 40, b = 0), 
           autosize = TRUE,
-          height = 360  # Hauteur ajustée
+          height = 450  
         ) %>%
-        config(displayModeBar = FALSE, responsive = TRUE)
+        config(displayModeBar = FALSE, responsive = TRUE,staticPlot = FALSE)
     })
   })
 }

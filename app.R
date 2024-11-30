@@ -15,9 +15,12 @@ library(ggraph)
 library(ggrepel)
 library(forcats)
 
+# Configuration globale
+options(shiny.maxRequestSize = 30 * 1024^2)
+options(shiny.fullstacktrace = TRUE)
+
 # Charger les composants UI et fonctions globales
 source("R/ui_components.R")
-source("global.R")
 # Source des modules
 source("modules/sunburst/module_ui.R")
 source("modules/sunburst/module_server.R")

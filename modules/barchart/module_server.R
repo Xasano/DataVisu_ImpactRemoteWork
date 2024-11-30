@@ -1,4 +1,3 @@
-# Server Module
 barchartServer <- function(id, shared_data) {
   moduleServer(id, function(input, output, session) {
     
@@ -75,13 +74,5 @@ barchartServer <- function(id, shared_data) {
         )
     })
     
-    # output$downloadPlot <- downloadHandler(
-    #   filename = function() {
-    #     paste("distribution_employees_", Sys.Date(), ".png", sep = "")
-    #   },
-    #   content = function(file) {
-    #     ggsave(file, plot = last_plot(), device = "png")
-    #   }
-    # )
   })
 }
