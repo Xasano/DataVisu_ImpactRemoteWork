@@ -21,24 +21,24 @@ dashboardServer <- function(input, output, session) {
   # Mise à jour des choix du filtre région
   observe({
     req(global_data())
+    all_regions <- sort(unique(global_data()$Region))
+    choices <- c("All" = "All", setNames(all_regions, all_regions))
+    
     updateSelectInput(session, "global_region",
-                     choices = sort(unique(global_data()$Region)),
-                     selected = "Europe")
+                    choices = choices,
+                    selected = "All")
   })
 
-  # Observer pour le bouton "Toutes les régions"
-  observeEvent(input$select_all_regions, {
-    req(global_data())
-    updateSelectInput(session, "global_region",
-                     selected = sort(unique(global_data()$Region)))
-  })
-
-
-  # Données filtrées pour le dashboard 
+  # Données filtrées pour le dashboard
   filtered_dashboard_data <- reactive({
     req(global_data(), input$global_region)
-    global_data() %>%
-      filter(Region %in% input$global_region)
+    
+    if(input$global_region == "All") {
+      return(global_data())
+    } else {
+      global_data() %>%
+        filter(Region == input$global_region)
+    }
   })
 
   # Initialisation des modules du dashboard avec données filtrées

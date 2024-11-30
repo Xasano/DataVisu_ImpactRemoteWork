@@ -36,26 +36,25 @@ dashboardUI <- dashboardPage(
         
         # Barre de filtres globaux
         div(class = "filter-bar",
-        fluidRow(
-          column(
-            width = 3,
-            selectInput(
-              "global_region",
-              "Région",
-              choices = NULL,
-              selected = "Europe",
-              width = "100%"
-            )
-          ),
-          column(
-            width = 2,
-            div(style = "margin-top: 25px;",
-              actionButton("select_all_regions", "Toutes les régions", 
-                          class = "btn btn-primary btn-sm")
+          fluidRow(
+            column(
+              width = 3,
+              selectInput(
+                "global_region",
+                "Région:",
+                choices = c("All" = "All", 
+                          "Europe" = "Europe", 
+                          "North America" = "North America", 
+                          "Asia" = "Asia",
+                          "Oceania" = "Oceania", 
+                          "South America" = "South America", 
+                          "Africa" = "Africa"),
+                selected = "All",
+                width = "100%"
+              )
             )
           )
-        )
-      ),
+        ),
         
         # Première rangée
         fluidRow(
